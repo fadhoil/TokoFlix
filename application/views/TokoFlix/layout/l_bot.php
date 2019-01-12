@@ -64,17 +64,26 @@
 	    return rupiah.split('',rupiah.length-1).reverse().join('');
 	}
 	function BuyIt(price) {
-		Swal(
-		  'Congratulation',
-		  'Transaction Success',
-		  'info'
-		)
+		
 		var wallet = parseInt(localStorage.getItem("mywallet"));
 		var hasil = wallet-price;
-		localStorage.setItem("mywallet", hasil);
+		if (hasil < 0) {
+			Swal(
+			  'Oh No!',
+			  'Transaction Fail, Not Enough Money',
+			  'error'
+			)
+		}else{
+			Swal(
+			  'Congratulation',
+			  'Transaction Success',
+			  'info'
+			);
+			localStorage.setItem("mywallet", hasil);
+		}
 
 		// parseInt(localStorage.getItem("mywallet"))=parseInt(localStorage.getItem("mywallet"))-price;
-		document.getElementById("mywallet").innerHTML = convertToRupiah(hasil);
+		document.getElementById("mywallet").innerHTML = convertToRupiah(localStorage.getItem("mywallet"));
 	}
 	  	if (localStorage.getItem("mywallet")===null) {
 			localStorage.setItem("mywallet", 100000);
